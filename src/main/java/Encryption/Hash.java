@@ -5,7 +5,6 @@ import java.security.NoSuchAlgorithmException;
 
 public class Hash {
     private final static String DIGEST_TYPE = "SHA-1";
-    private static Hash instance;
     private static int hashSize; // MUST BE 160 bits
 
 

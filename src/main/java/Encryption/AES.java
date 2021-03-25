@@ -17,7 +17,7 @@ import java.security.spec.InvalidKeySpecException;
 import java.security.spec.KeySpec;
 import java.util.Base64;
 
-public class AES {
+class AES {
 
     private final static int SECRET_KEY_SIZE = 32; // 32 bytes = 256 bits
     private final static String SECRET_KEY_TYPE = "PBKDF2WithHmacSHA512"; // 512 bit hash
@@ -27,7 +27,6 @@ public class AES {
     private final static String CIPHER_TYPE = "AES/GCM/NoPadding";
     private final static int INITIALIZATION_VECTOR_SIZE = 12; // 12 bytes = 96 bit
     private final static int AUTHENTICATION_TAG_LENGTH = 16 * 8; // 128 bits
-    private static AES instance;
 
     public static String generateSecretPassword() throws NoSuchAlgorithmException {
         SecureRandom secureRandom = SecureRandom.getInstanceStrong();
