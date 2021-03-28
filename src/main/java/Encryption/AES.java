@@ -19,7 +19,7 @@ import java.util.Base64;
 
 class AES {
 
-    private final static int SECRET_KEY_SIZE = 32; // 32 bytes = 256 bits
+    private final static int SECRET_KEY_SIZE = 16; // 16 bytes = 128 bits
     private final static String SECRET_KEY_TYPE = "PBKDF2WithHmacSHA512"; // 512 bit hash
     private final static int PBE_ITERATIONS_COUNT = 65536;
     private final static int KDF_HASH_SIZE = 256;
