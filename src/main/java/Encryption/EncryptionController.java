@@ -52,7 +52,7 @@ public class EncryptionController implements IEncryptionController {
         try {
             return AES.generateSecretKey(password, secretPassword);
         } catch (Exception e) {
-            LOGGER.warning("Error generating secret AES key");
+            LOGGER.severe("Error generating secret AES key");
             e.printStackTrace();
         }
         return null;
@@ -113,14 +113,9 @@ public class EncryptionController implements IEncryptionController {
     }
 
     @Override
-    public byte[] decryptDataByAES(SecretKey secretKey, byte[] data) {
-        try {
-            return AES.decryptData(secretKey, data);
-        } catch (NoSuchAlgorithmException | InvalidKeyException | InvalidAlgorithmParameterException | NoSuchPaddingException | BadPaddingException | IllegalBlockSizeException e) {
-            LOGGER.warning("Error decrypting file data");
-            e.printStackTrace();
-        }
-        return null;
+    public byte[] decryptDataByAES(SecretKey secretKey, byte[] data) throws GeneralSecurityException {
+        return AES.decryptData(secretKey, data);
+
     }
 
     @Override

@@ -2,6 +2,7 @@ package Encryption;
 
 import javax.crypto.SecretKey;
 import java.io.File;
+import java.security.GeneralSecurityException;
 import java.security.KeyPair;
 import java.security.PrivateKey;
 import java.security.PublicKey;
@@ -25,7 +26,7 @@ public interface IEncryptionController {
 
     String decryptStringByAES(SecretKey key, String s);
 
-    byte[] decryptDataByAES(SecretKey secretKey, byte[] data);
+	byte[] decryptDataByAES(SecretKey secretKey, byte[] data) throws GeneralSecurityException;
 
     PublicKey getPublicKeyFromBytes(byte[] data);
 
