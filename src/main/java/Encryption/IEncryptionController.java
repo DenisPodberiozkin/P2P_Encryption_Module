@@ -1,7 +1,6 @@
 package Encryption;
 
 import javax.crypto.SecretKey;
-import java.io.File;
 import java.security.GeneralSecurityException;
 import java.security.KeyPair;
 import java.security.PrivateKey;
@@ -16,11 +15,9 @@ public interface IEncryptionController {
 
     SecretKey generateAESKey(String password, String secretPassword);
 
-    byte[] encryptFileByAES(SecretKey key, File file);
 
     byte[] encryptDataByAES(SecretKey key, byte[] data);
 
-    byte[] decryptFileByAES(SecretKey secretKey, File file);
 
     String encryptStringByAES(SecretKey key, String s);
 

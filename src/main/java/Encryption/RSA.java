@@ -22,7 +22,4 @@ public class RSA {
         return KeyFactory.getInstance(ALGORITHM_TYPE).generatePrivate(new PKCS8EncodedKeySpec(data));
     }
 
-//    public static byte[] encrypt(String data, PublicKey publicKey) {
-//
-//    }
 }
