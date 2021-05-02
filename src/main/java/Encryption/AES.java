@@ -4,9 +4,6 @@ import javax.crypto.*;
 import javax.crypto.spec.GCMParameterSpec;
 import javax.crypto.spec.PBEKeySpec;
 import javax.crypto.spec.SecretKeySpec;
-import java.io.File;
-import java.io.FileInputStream;
-import java.io.IOException;
 import java.nio.ByteBuffer;
 import java.nio.charset.StandardCharsets;
 import java.security.InvalidAlgorithmParameterException;
@@ -19,7 +16,7 @@ import java.util.Base64;
 
 class AES {
 
-    private final static int SECRET_KEY_SIZE = 16; // 16 bytes = 128 bits
+    private final static int SECRET_PASSWORD_SIZE = 16; // 16 bytes = 128 bits
     private final static String SECRET_KEY_TYPE = "PBKDF2WithHmacSHA512"; // 512 bit hash
     private final static int PBE_ITERATIONS_COUNT = 65536;
     private final static int KDF_HASH_SIZE = 256;
@@ -30,9 +27,9 @@ class AES {
 
     public static String generateSecretPassword() throws NoSuchAlgorithmException {
         SecureRandom secureRandom = SecureRandom.getInstanceStrong();
-        byte[] secretKeyBytes = new byte[SECRET_KEY_SIZE];
-        secureRandom.nextBytes(secretKeyBytes);
-        return Base64.getEncoder().encodeToString(secretKeyBytes);
+        byte[] secretPasswordBytes = new byte[SECRET_PASSWORD_SIZE];
+        secureRandom.nextBytes(secretPasswordBytes);
+        return Base64.getEncoder().encodeToString(secretPasswordBytes);
     }
 
 
@@ -87,14 +84,6 @@ class AES {
         return null;
     }
 
-    public static byte[] encryptFile(SecretKey key, File file) throws NoSuchPaddingException, NoSuchAlgorithmException, InvalidAlgorithmParameterException, InvalidKeyException, BadPaddingException, IllegalBlockSizeException {
-        return encryptData(key, readFile(file));
-    }
-
-
-    public static byte[] decryptFile(SecretKey secretKey, File file) throws NoSuchPaddingException, NoSuchAlgorithmException, InvalidKeyException, BadPaddingException, IllegalBlockSizeException, InvalidAlgorithmParameterException {
-        return decryptData(secretKey, readFile(file));
-    }
 
     public static String encryptString(SecretKey key, String s) throws NoSuchPaddingException, InvalidKeyException, NoSuchAlgorithmException, IllegalBlockSizeException, BadPaddingException, InvalidAlgorithmParameterException {
         final byte[] encryptedData = encryptData(key, s.getBytes());
@@ -107,22 +96,6 @@ class AES {
         return new String(decryptedData, StandardCharsets.UTF_8);
     }
 
-
-    private static byte[] readFile(File file) {
-        try (FileInputStream inputStream = new FileInputStream(file)) {
-            byte[] fileData = new byte[(int) file.length()];
-            int numberOfBytesRead = inputStream.read(fileData);
-            if (file.length() == numberOfBytesRead) {
-                return fileData;
-            }
-        } catch (IOException e) {
-            System.err.println("Error while reading file to decrypt");
-            e.printStackTrace();
-
-        }
-
-        return null;
-    }
 
     private static byte[] generateInitializationVector() throws NoSuchAlgorithmException {
         SecureRandom secureRandom = SecureRandom.getInstanceStrong();
